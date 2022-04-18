@@ -16,10 +16,11 @@
 - Bootstrap
 - TinyMCE
 
-## **Back-end**
+### **Back-end**
 
 - Node.js
 - Express
 - MySQL
 - Sequelize
 - EJS
+- Slugify
