@@ -24,11 +24,15 @@
             <td><%= category.title %></td>
             <td><%= category.slug %></td>
             <td class="">
-              <button class="btn me-3 border-dark text-light p-1">
+              <a class="btn me-3 border-dark p-1"
+                href="/admin/categories/edit/<%= category.id %>"
+              >
                 <img width="30" src="/assets/edit.png" alt="edit">
-              </button>
+              </a>
 
-              <form method="post" action="/admin/categories/delete" style="display: inline;">
+              <form method="post" action="/admin/categories/delete" style="display: inline;"
+                onsubmit="handleDelete(event, this, '<%= category.title %>')"
+              >
                 <input type="hidden" name="id" value="<%= category.id %>"/>
                 <button class="btn border-dark p-1">
                   <img width="30" src="/assets/delete.png" alt="del">
@@ -54,3 +58,11 @@
   </div>
 </body>
 <%- include('../../partials/footer.ejs') %>
+
+<script>
+  function handleDelete(event, form, category) {
+    event.preventDefault();
+    const response = confirm(`Deseja deletar a categoria ${category}?`);
+    response && form.submit();
+  }
+</script>

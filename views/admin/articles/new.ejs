@@ -1,0 +1,24 @@
+<%- include('../../partials/header.ejs') %> 
+<body>
+  <%- include('../../partials/navbar.ejs') %>
+  
+  <div class="container">
+    <div class="card mt-4">
+      <div class="card-header">
+        <h2>Nova Postagem</h2>
+      </div>
+      <div class="card-body">
+        <form action="/admin/categories/new" method="post" class="row">
+          <div class="col-9">
+            <input class="form-control" type="text" name="title" placeholder="Nome da categoria" autofocus>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-success">Salvar</button>
+          </div>
+        </form>
+        <hr>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
