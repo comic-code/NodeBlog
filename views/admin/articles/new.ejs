@@ -8,13 +8,13 @@
         <h2>Nova Postagem</h2>
       </div>
       <div class="card-body">
-        <form action="/admin/categories/new" method="post" class="row">
-          <div class="col-9">
-            <input class="form-control" type="text" name="title" placeholder="Nome da categoria" autofocus>
-          </div>
-          <div class="col-2">
-            <button class="btn btn-success">Salvar</button>
-          </div>
+        <form action="/admin/categories/new" method="post">
+          <input class="form-control mb-4" type="text" name="title" placeholder="Título da postagem" autofocus>
+      
+          <textarea placeholder="Corpo da postagem" name="body"id="article"
+          ></textarea>
+          
+          <button class="btn btn-success mt-4">Enviar</button>
         </form>
         <hr>
       </div>
@@ -22,3 +22,12 @@
   </div>
 </body>
 <%- include('../../partials/footer.ejs') %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    selector: '#article',
+    language: 'pt_BR',
+    plugins: ['advlist', 'autolink', 'link', 'image', 'lists', 'print', 'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 'insertdatetime', 'media', 'save', 'table', 'paste', 'emoticons'],
+  })
+</script>
