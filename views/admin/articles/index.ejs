@@ -1,0 +1,47 @@
+<%- include('../../partials/header.ejs') %>
+<body>
+  <%- include('../../partials/navbar.ejs') %>
+  <div class="container">
+    <hr />
+    <div class="row">
+      <h2 class="col">Categorias</h2>
+      <a class="btn btn-success col-4 me-3 pt-2" href="/admin/categories/new">Nova Categoria</a>
+    </div>
+    <hr />
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Slug</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>
+            <div class="text-end me-2">
+              
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
+
+<script>
+  function handleDelete(event, form, category) {
+    event.preventDefault();
+    const response = confirm(`Deseja deletar a categoria ${category}?`);
+    response && form.submit();
+  }
+</script>
