@@ -1,0 +1,47 @@
+:root {
+  --brown: #BD8D4C;
+  --light: #f2e0d8;
+  --gray: #8a8583;
+  --dark-gray: #475c6c
+}
+
+body {
+  background-color: var(--light);
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-weight: 500;
+  margin: 0;
+}
+
+nav.customNav {
+  background-color: var(--dark-gray);
+}
+
+nav.customNav a {
+  color: var(--light);
+  transition: 0.5s filter;
+}
+
+nav.customNav a:hover {
+  filter: brightness(1.2);
+  color: #fafafa
+}
+
+nav.customNav a img {
+  width: 10rem;
+}
+
+.customButton {
+  background-color: var(--brown);
+  color: var(--light);
+  transition: 0.4s;
+}
+
+.customButton:hover {
+  color: var(--light);
+  filter: brightness(1.1);
+}
