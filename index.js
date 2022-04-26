@@ -21,7 +21,9 @@ connection.authenticate().then(() => {
 });
 
 app.get('/', (req, res) => {
-  res.render('index');
+  Article.findAll({ raw: true }).then(articles => {
+    res.render('index', { articles });
+  }).catch(error => res.send(`❌ Falha: ${error}`))
 });
 app.use('/', categoriesController);
 app.use('/', articlesController)

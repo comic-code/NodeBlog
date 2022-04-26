@@ -2,7 +2,8 @@
   --brown: #BD8D4C;
   --light: #f2e0d8;
   --gray: #8a8583;
-  --dark-gray: #475c6c
+  --dark-gray: #475c6c;
+  --red: #9f1818;
 }
 
 body {
@@ -17,18 +18,56 @@ h3 {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 nav.customNav {
   background-color: var(--dark-gray);
+  border-bottom: 2px solid var(--brown);
+}
+
+div.hero {
+  background: url('/assets/knight.png'), url('/assets/dragon.png');
+  background-position: right, left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: var(--light);
+}
+
+@media (max-width: 800px) {
+  div.hero {
+    background: url('/assets/dragon.png') no-repeat left;
+    background-size: contain;
+  }
+}
+
+div.customCard {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 2px solid var(--dark-gray);
+}
+
+div.customCard h2 {
+  color: var(--red);
+}
+
+nav.customNav a.nav-link {
+  color: var(--brown);
+  font-family: 'Spectral SC';
+  font-weight: bold;
+  text-align: center;
+  margin: 0 5px;
+  padding: 5px 10px;
 }
 
 nav.customNav a {
-  color: var(--light);
-  transition: 0.5s filter;
+  transition: 0.5s;
 }
 
 nav.customNav a:hover {
   filter: brightness(1.2);
-  color: #fafafa
+  color: #fafafa;
 }
 
 nav.customNav a img {
@@ -36,8 +75,9 @@ nav.customNav a img {
 }
 
 .customButton {
-  background-color: var(--brown);
+  background-color: var(--red);
   color: var(--light);
+  border: 2px solid var(--dark-gray);
   transition: 0.4s;
 }
 

@@ -1,6 +1,34 @@
 <%- include('partials/header.ejs') %>
-<%- include('partials/navbar.ejs') %>
+<%- include('partials/homenavbar.ejs') %>
 <body>
-  <h1>Hello Friend </h1>
+  
+  <div class="container">
+    <div class="container-fluid py-4 hero">
+      <div class="row">
+        <img src="/assets/separator.png" alt="separator">
+      </div>
+      
+      <h1 class="display-5 fw-bold text-center mt-3">Olá Viajante!</h1>
+      <p class="fs-4 text-center px-5 mb-3">O Dragão Caolho é uma mesa de RPG... Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis commodi unde quas dolorem ut.</p>
+      
+      <div class="row">
+        <img src="/assets/separator.png" alt="separator">
+      </div>
+    </div>
+    
+
+    <% articles.forEach(article => { %>
+      <a href="#">
+        <div class="card mt-3 customCard">
+          <div class="card-header">
+            <h2><%= article.title %></h2>
+          </div>
+          <div class="card-body">
+  
+          </div>
+        </div>
+      </a>
+    <% }) %>
+  </div>
 </body>
 <%- include('partials/footer.ejs') %>
