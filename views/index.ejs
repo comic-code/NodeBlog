@@ -18,8 +18,8 @@
     
 
     <% articles.forEach(article => { %>
-      <a href="#">
-        <div class="card mt-3 customCard">
+      <a href="/<%= article.slug %>">
+        <div class="card my-3 customCard">
           <div class="card-header">
             <h2><%= article.title %></h2>
           </div>

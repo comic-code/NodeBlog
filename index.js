@@ -20,13 +20,30 @@ connection.authenticate().then(() => {
   console.log(error);
 });
 
-app.get('/', (req, res) => {
-  Article.findAll({ raw: true }).then(articles => {
-    res.render('index', { articles });
-  }).catch(error => res.send(`❌ Falha: ${error}`))
-});
 app.use('/', categoriesController);
-app.use('/', articlesController)
+app.use('/', articlesController);
+
+app.get('/', (req, res) => {
+  Article.findAll({ raw: true, order: [['id', 'DESC']] }).then(articles => {
+    res.render('index', { articles });
+  }).catch(error => res.send(`❌ Falha ao recuperar todos artigos: ${error}`))
+});
+
+app.get('/:slug', (req, res) => {
+  const { slug } = req.params;
+  Article.findOne({ raw: true, 
+    where: {
+      slug
+  }}).then(article => {
+    article 
+    ? res.render('article', { article })
+    : res.redirect('/');
+  }).catch(error => {
+    console.log(`❌ Falha ao recuperar artigo pelo slug "${slug}": ${error}`)
+    res.redirect('/');
+  })
+});
+
 
 app.listen(4000, err => {
   err ? console.log('Falha ao iniciar servidor! ❌') : console.log('Servidor rodando! 🚀');
