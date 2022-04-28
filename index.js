@@ -25,24 +25,54 @@ app.use('/', articlesController);
 
 app.get('/', (req, res) => {
   Article.findAll({ raw: true, order: [['id', 'DESC']] }).then(articles => {
-    res.render('index', { articles });
-  }).catch(error => res.send(`❌ Falha ao recuperar todos artigos: ${error}`))
+    Category.findAll().then(categories => {
+      res.render('index', { articles, categories });
+    })
+  }).catch(error => res.send(`❌ Falha ao recuperar dados: ${error}`));
 });
 
 app.get('/:slug', (req, res) => {
   const { slug } = req.params;
-  Article.findOne({ raw: true, 
-    where: {
-      slug
-  }}).then(article => {
-    article 
-    ? res.render('article', { article })
-    : res.redirect('/');
+  Article.findOne({ 
+    raw: true, 
+    where: { slug }
+  }).then(article => {
+    if(article) {
+      Category.findAll().then(categories => {
+        res.render('article', { article, categories });
+      }) 
+    } else {
+      res.redirect('/');
+    }
   }).catch(error => {
     console.log(`❌ Falha ao recuperar artigo pelo slug "${slug}": ${error}`)
     res.redirect('/');
   })
 });
+
+app.get('/categoria/:slug', (req, res) => {
+  const { slug } = req.params;
+  Category.findOne({ 
+    where: { slug },
+    include: [{model: Article}]
+  }).then(category => {
+    if(category) {
+      Category.findAll().then(categories => {
+        res.render('index', {
+          articles: category.articles,
+          categories
+        })
+      })
+    } else {
+      res.redirect('/');
+    }
+  }).catch(error => {
+    console.log(`❌ Falha ao filtrar artigos pela categoria "${slug}": ${error}`)
+    res.redirect('/');
+  }) 
+})
+
+
 
 
 app.listen(4000, err => {

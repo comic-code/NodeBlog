@@ -1,0 +1,55 @@
+<%- include('../../partials/header.ejs') %> 
+<body>
+  <%- include('../../partials/navbar.ejs') %>
+  
+  <div class="container">
+    <div class="card my-4">
+      <div class="card-header">
+        <h2>Editar Postagem</h2>
+      </div>
+      <div class="card-body">
+        <form action="/admin/articles/update" method="post">
+          <input type="hidden" name="id" value="<%= article.id %>" />
+          <input class="form-control mb-3" type="text" name="title" placeholder="Título da postagem" autofocus
+            value="<%= article.title %>" />
+          
+          <div class="d-flex align-items-center mb-3">
+            <label for="category">Categoria:</label>
+            <select name="category" id="category" class="form-control ms-1" >
+              <% categories.forEach(category => { %>
+                <% if(category.id === article.categoryId) { %>
+                  <option selected value="<%= category.id %>"><%= category.title %></option>
+                <% } else { %>
+                  <option value="<%= category.id %>"><%= category.title %></option>
+                <% } %>
+              <% }) %>
+            </select>
+          </div>
+
+          
+          <textarea placeholder="Corpo da postagem" name="body" id="article">
+            <%= article.body %> 
+          </textarea>
+          
+          <button class="btn btn-success mt-4">Atualizar</button>
+        </form>
+        <hr>
+      </div>
+    </div>
+  </div>
+
+  <div id="content" style="display: none;">
+    <%= article.body %>
+  </div>
+</body>
+<%- include('../../partials/footer.ejs') %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    selector: '#article',
+    language: 'pt_BR',
+    browser_spellcheck: true,
+    plugins: ['advlist', 'autolink', 'link', 'image', 'lists', 'print', 'preview', 'hr', 'searchreplace', 'wordcount', 'fullscreen', 'insertdatetime', 'media', 'save', 'table', 'paste', 'emoticons', 'tinymcespellchecker'],
+  })
+</script>

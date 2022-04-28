@@ -10,7 +10,6 @@ router.get('/admin/articles', (req, res) => {
     raw: true,
     include: [{ model: Category }]
   }).then(articles => {
-    console.log(articles);
     res.render('admin/articles', {articles});  
   }).catch(error => {
     console.log(`❌ Erro ao resgatar postagens: ${error}`);
@@ -55,4 +54,34 @@ router.post('/admin/articles/delete', (req, res) => {
   }
 })
 
+router.get('/admin/articles/edit/:id', (req, res) => {
+  const { id } = req.params;
+  Article.findByPk(id).then(article => {
+    if(article) {
+      Category.findAll({ raw: true }).then(categories => {
+        res.render('admin/articles/edit', { categories, article });
+      })
+    } else {
+      res.redirect('/admin/articles');  
+    }
+  }).catch(error => {
+    console.log(`❌ Erro ao buscar artigo: ${error}`);
+    res.redirect('/admin/articles');
+  });
+})
+
+router.post('/admin/articles/update', (req, res) => {
+  const { id, title, body, category } = req.body;
+  Article.update({
+    title, body,
+    categoryId: category,
+    slug: slugify(title),    
+  }, {
+    where: {id}
+  }).then(() => {
+    res.redirect('/admin/articles');
+  }).catch(error => {
+    console.log(`❌ Erro ao editar artigo: ${error}`);
+  });
+})
 module.exports = router;
