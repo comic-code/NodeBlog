@@ -83,5 +83,28 @@ router.post('/admin/articles/update', (req, res) => {
   }).catch(error => {
     console.log(`❌ Erro ao editar artigo: ${error}`);
   });
+});
+
+router.get('/articles/page/:page', (req, res) => {
+  const { page } = req.params;
+  const limit = 4;
+  let offset = 0;
+
+  if(isNaN(page) || page <= 1) {
+    offset = 0;
+  } else {
+    offset = limit * (page - 1) ;
+  }
+
+  Article.findAndCountAll({
+    limit, offset, order: [[ 'id', 'DESC' ]]
+  }).then(articles => {
+    const result = {
+      articles,
+      next: offset + 4 <= articles.count // Verifica se existe mais páginas a serem exibidas;
+    }
+    res.json(result);
+  });
 })
+
 module.exports = router;
