@@ -1,8 +1,7 @@
 <%- include('partials/header.ejs') %>
 <%- include('partials/homenavbar.ejs') %>
 <body>
-  
-  <div class="container">
+  <div class="container py-3">
     <div class="container-fluid py-4 hero">
       <div class="row">
         <img src="/assets/separator.png" alt="separator">
@@ -16,7 +15,6 @@
       </div>
     </div>
     
-
     <% articles.forEach(article => { %>
       <a href="/<%= article.slug %>">
         <div class="card my-3 customCard">
@@ -29,6 +27,15 @@
         </div>
       </a>
     <% }) %>
+
+    <div class="row ">
+      <div class="d-flex flex-row-reverse">
+        <a href="/articles/page/2" class="btn customButton">
+          Próxima página >
+        </a>
+      </div>
+    </div>
+    
   </div>
 </body>
 <%- include('partials/footer.ejs') %>

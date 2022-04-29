@@ -93,18 +93,24 @@ router.get('/articles/page/:page', (req, res) => {
   if(isNaN(page) || page <= 1) {
     offset = 0;
   } else {
-    offset = limit * (page - 1) ;
+    offset = limit * (page - 1);
   }
 
   Article.findAndCountAll({
     limit, offset, order: [[ 'id', 'DESC' ]]
   }).then(articles => {
     const result = {
+      page: parseInt(page),
       articles,
       next: offset + 4 <= articles.count // Verifica se existe mais páginas a serem exibidas;
     }
-    res.json(result);
-  });
+
+    Category.findAll({ raw: true }).then(categories => {
+      res.render('page', { result, categories });
+    })
+  }).catch(error => {
+    console.log(`❌ Erro ao regatar artigos página "${page}": ${error}`);
+  })
 })
 
 module.exports = router;
