@@ -1,0 +1,20 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<div class="container py-4">
+  <div class="card">
+    <div class="card-header">
+      <h2>Cadastro de usuário</h2>
+    </div>
+    <div class="card-body row">
+      <form action="/admin/users/create" method="post" class="ms-auto me-auto col-md-5 col-sm-10 align-items-center d-flex flex-column"> 
+        <input type="text" name="name" class="form-control" placeholder="Nome" />
+        <input type="text" name="email" class="form-control my-3" placeholder="Email" />
+        <input type="password" name="password" class="form-control" placeholder="Senha" />
+        <button type="submit" class="btn customButton mt-3">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>

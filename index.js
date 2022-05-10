@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 
 const connection = require('./database/connection');
 const categoriesController = require('./controllers/categories/CategoriesController'); 
-const articlesController = require('./controllers/articles/ArticlesControllers'); 
+const articlesController = require('./controllers/articles/ArticlesControllers');
+const usersController = require('./controllers/user/UserController');
 const Article = require('./controllers/articles/Article');
 const Category = require('./controllers/categories/Category');
 
@@ -22,6 +23,7 @@ connection.authenticate().then(() => {
 
 app.use('/', categoriesController);
 app.use('/', articlesController);
+app.use('/', usersController);
 
 app.get('/', (req, res) => {
   Article.findAll({

@@ -24,3 +24,5 @@
 - Sequelize
 - EJS
 - Slugify
+- Bcryptjs
+- Cookies e sessões
