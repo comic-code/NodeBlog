@@ -2,10 +2,12 @@ const express = require('express');
 const slugify = require('slugify');
 const Category = require('../categories/Category');
 const Article = require('./Article');
+
+const auth = require('../../middlewares/auth');
  
 const router = express.Router();
 
-router.get('/admin/articles', (req, res) => {
+router.get('/admin/articles', auth, (req, res) => {
   Article.findAll({ 
     raw: true,
     include: [{ model: Category }]
@@ -16,7 +18,7 @@ router.get('/admin/articles', (req, res) => {
   })
 })
 
-router.get('/admin/articles/new', (req, res) => {
+router.get('/admin/articles/new', auth, (req, res) => {
   Category.findAll({ raw: true }).then(categories => {
     res.render('admin/articles/new', {categories});
   }).catch(error => {
@@ -24,7 +26,7 @@ router.get('/admin/articles/new', (req, res) => {
   })
 })
 
-router.post('/admin/articles/new', (req, res) => {
+router.post('/admin/articles/new', auth, (req, res) => {
   const { title, category, body } = req.body;
 
   console.log(category);
@@ -41,7 +43,7 @@ router.post('/admin/articles/new', (req, res) => {
   })
 })
 
-router.post('/admin/articles/delete', (req, res) => {
+router.post('/admin/articles/delete', auth, (req, res) => {
   const { id } = req.body;
   if(id && !isNaN(id)) {
     Article.destroy({
@@ -54,7 +56,7 @@ router.post('/admin/articles/delete', (req, res) => {
   }
 })
 
-router.get('/admin/articles/edit/:id', (req, res) => {
+router.get('/admin/articles/edit/:id', auth, (req, res) => {
   const { id } = req.params;
   Article.findByPk(id).then(article => {
     if(article) {
@@ -70,7 +72,7 @@ router.get('/admin/articles/edit/:id', (req, res) => {
   });
 })
 
-router.post('/admin/articles/update', (req, res) => {
+router.post('/admin/articles/update', auth, (req, res) => {
   const { id, title, body, category } = req.body;
   Article.update({
     title, body,

@@ -26,3 +26,4 @@
 - Slugify
 - Bcryptjs
 - Cookies e sessões
+- Middlewares

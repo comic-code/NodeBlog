@@ -1,5 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const connection = require('./database/connection');
 const categoriesController = require('./controllers/categories/CategoriesController'); 
@@ -13,6 +15,17 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  cookie: {
+    maxAge: 1000 * 30 
+  }
+
+  // O padrão salva na memória RAM, o que não é legal para aplicações médias/grandes. 
+  // Para evitar o estouro de RAM é utilizado o REDIS.
+  // Servidores desligados.
+}));
 
 connection.authenticate().then(() => {
   console.log('Conectado com o banco de dados! 🚀');
@@ -77,9 +90,6 @@ app.get('/categoria/:slug', (req, res) => {
     res.redirect('/');
   }) 
 })
-
-
-
 
 app.listen(4000, err => {
   err ? console.log('Falha ao iniciar servidor! ❌') : console.log('Servidor rodando! 🚀');

@@ -1,0 +1,18 @@
+<%- include('../../partials/header.ejs') %>
+
+<div class="container py-5">
+  <div class="card">
+    <div class="card-header">
+      <h2>Login</h2>
+    </div>
+    <div class="card-body row">
+      <form action="/login" method="post" class="ms-auto me-auto col-md-5 col-sm-10 align-items-center d-flex flex-column"> 
+        <input type="text" name="email" class="form-control my-3" placeholder="Email" />
+        <input type="password" name="password" class="form-control" placeholder="Senha" />
+        <button type="submit" class="btn customButton mt-3">Entrar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
